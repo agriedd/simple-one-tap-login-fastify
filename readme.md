@@ -20,7 +20,7 @@ pada halaman login mereka dan sebuah tag <code>script</code>
 dan iframe ini berisi halaman daftar akun yang tercatat pada cookies domain layanan utama, 
 > Note: dikarenakan cookie tidak bisa di share lintas domain, maka cara untuk menampilkan data cookies dalam contoh ini yaitu daftar pengguna yang sudah login pada perangkat
 
-Tentu saja ini repository ini hanya menjelaskan bagaimana membagikan cookie pada domain yang berbeda, tahapan berikutnya yang tidak ada pada repository ini adalah bagaimana:
+Tentu saja ini repository ini hanya menjelaskan bagaimana membagikan cookie pada domain yang berbeda, tahapan berikutnya adalah bagaimana:
 - jika salah satu akun (pada daftar akun pada iframe) diklik
 - apa yang akan terjadi pada domain ``app1``
 
