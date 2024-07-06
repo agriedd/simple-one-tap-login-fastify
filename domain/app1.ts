@@ -4,22 +4,7 @@ import * as fs from 'fs'
 
 const server: FastifyInstance = Fastify({})
 
-const opts: RouteShorthandOptions = {
-  schema: {
-    response: {
-      200: {
-        type: 'object',
-        properties: {
-          pong: {
-            type: 'string'
-          }
-        }
-      }
-    }
-  }
-}
-
-server.get('/ping', opts, async (request, reply) => {
+server.get('/', async (request, reply) => {
   
   const bufferIndexHtml = fs.readFileSync(__dirname + '/app1.html')
   reply.type('text/html').send(bufferIndexHtml)
