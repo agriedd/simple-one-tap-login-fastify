@@ -1,0 +1,1 @@
+start npm run start && start npm run start:app1 && start npm run start:app2
