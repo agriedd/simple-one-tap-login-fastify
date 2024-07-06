@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Index</title>
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+	<div class="p-4 flex flex-col gap-4 min-h-screen">
+		<h1>
+			Index
+		</h1>
+		<div class="flex gap-3">
+			<input type="text" class="rounded-md border px-3 py-2" name="email">
+			<button class="add-account-trigger bg-slate-100 p-2 rounded-lg border-b-2 border-slate-200 text-sm">
+				Add Account
+			</button>
+		</div>
+		<div class="logger bg-slate-100 text-xs divide-y font-mono p-4 flex flex-col overflow-y-auto space-y-2 grow max-h-96">
+		</div>
+	</div>
+	<script src="http://localhost:3000/public/one-tap-login.js" crossorigin="anonymous"></script>
+	<script>
+		const log = (message, type = "normal") => {
+
+			const logger = document.querySelector(".logger")
+			const div = document.createElement("div")
+			if(type === "error"){
+				div.classList.add("text-rose-500")
+			}
+			div.innerText = message
+			logger.prepend(div)
+
+		}
+		window.addEventListener('load', ()=>{
+
+			log("App loaded!")
+
+			document.querySelector(".add-account-trigger")?.addEventListener("click", ()=>{
+				const email = document.querySelector("[name=\"email\"]")?.value
+				axios.post("/login", { email: email }).then(e => {
+					log(JSON.stringify(e.data))
+				}).catch(err => {
+					log(err, "error")
+				})
+			})
+		})
+	</script>
+</body>
+</html>

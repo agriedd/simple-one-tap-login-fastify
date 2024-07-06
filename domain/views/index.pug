@@ -1,0 +1,59 @@
+meta(charset="UTF-8")
+meta(name="viewport" content="width=device-width,initial-scale=1")
+title Main App
+script(src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js")
+script(src="https://cdn.tailwindcss.com")
+style.
+  html{
+    height: 320px;
+    pointer-events: none;
+  }
+body(style="max-height: 320px" class="p-8 flex flex-col pointer-events-none")
+  .p-4.flex.flex-col.gap-4.bg-white.rounded-xl.shadow-2xl.overflow-auto.pointer-events-auto
+
+    h1(class="font-mono")
+
+      Embed Main App
+
+    div.
+    if accounts.length > 0
+      div(class="gap-4 flex flex-col")
+        h1(class="text-lg font-semibold font-sans") List Accounts
+        ol(class="divide-y border rounded-lg")
+          each account in accounts
+            li(class="p-4 hover:bg-slate-100 account-list-item cursor-pointer select-none" data = account.id)= account.name
+    else
+      div.
+        Empty Account
+
+script.
+
+  const log = (message, type = "normal") => {
+
+    const logger = document.querySelector(".logger")
+    const div = document.createElement("div")
+    if(type === "error"){
+      div.classList.add("text-rose-500")
+    }
+    div.innerText = message
+    logger.prepend(div)
+
+  }
+  window.addEventListener('load', ()=>{
+
+    log("App loaded!")
+
+    document.querySelectorAll(".account-list-item")?.forEach(el => {
+      el.addEventListener("click", (e)=>{
+        log(`List item clicked! ${el.getAttribute("data")}`)
+      })
+    })
+
+    document.querySelector(".log-trigger-test")?.addEventListener("click", ()=>{
+      axios.get("http://localhost:3000/ping").then(e => {
+        log(JSON.stringify(e.data))
+      }).catch(err => {
+        log(err, "error")
+      })
+    })
+  })
