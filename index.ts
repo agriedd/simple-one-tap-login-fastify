@@ -80,6 +80,30 @@ server.post('/login', opts, async (request, reply) => {
 
 	return { email: request.body["email"] }
 })
+server.get('/confirm', opts, async (request, reply) => {
+
+	const ui = request.query["ui"] ?? 0
+
+	const loggedAccountsStr = request.cookies.loggedAccounts ?? "[]"
+	const loggedAccounts = JSON.parse(loggedAccountsStr) as string[]
+
+	const callback = request.query["callback"] ?? ""
+
+	const accounts: Account[] = loggedAccounts.map((e, i) => {
+		return {
+			id: i,
+			email: e,
+			name: e.split("@")[0]
+		}
+	})
+
+	const account: Account = accounts[ui]
+
+	return reply.view(`/domain/views/confirm.pug`, {
+		account,
+		callback
+	})
+})
 server.get('/', async (request, reply) => {
 	const bufferIndexHtml = readFileSync(__dirname + '/domain/index.html')
 	reply.type('text/html').send(bufferIndexHtml)
@@ -90,6 +114,8 @@ server.get('/embed', async (request, reply) => {
 	const loggedAccountsStr = request.cookies.loggedAccounts ?? "[]"
 	const loggedAccounts = JSON.parse(loggedAccountsStr) as string[]
 
+	const callback = request.query["callback"] ?? ""
+
 	const accounts: Account[] = loggedAccounts.map((e, i) => {
 		return {
 			id: i,
@@ -97,8 +123,10 @@ server.get('/embed', async (request, reply) => {
 			name: e.split("@")[0]
 		}
 	})
+
 	return reply.view(`/domain/views/index.pug`, {
-		accounts
+		accounts,
+		callback
 	})
 })
 

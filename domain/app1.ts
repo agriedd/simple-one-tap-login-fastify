@@ -11,6 +11,13 @@ server.get('/', async (request, reply) => {
 
   // return { pong: 'it worked!' }
 })
+server.get('/login', async (request, reply) => {
+  
+  const bufferIndexHtml = fs.readFileSync(__dirname + '/app1-logged-in.html')
+  reply.type('text/html').send(bufferIndexHtml)
+
+  // return { pong: 'it worked!' }
+})
 
 const start = async () => {
   try {

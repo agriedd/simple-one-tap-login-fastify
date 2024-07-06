@@ -3,26 +3,14 @@ meta(name="viewport" content="width=device-width,initial-scale=1")
 title Main App
 script(src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js")
 script(src="https://cdn.tailwindcss.com")
-base(target="_parent")
 
-style.
-  html{
-    height: 320px;
-    pointer-events: none;
-  }
-body(style="max-height: 320px" class="p-8 flex flex-col pointer-events-none")
+body(style="max-height: 320px" class="p-8 flex flex-col")
   .p-4.flex.flex-col.gap-4.bg-white.rounded-xl.shadow-2xl.overflow-auto.pointer-events-auto
-    div.
-    if accounts.length > 0
-      div(class="gap-4 flex flex-col")
-        h1(class="text-lg font-semibold font-sans") List Accounts
-        ol(class="divide-y border rounded-lg")
-          each account in accounts
-            li
-              a(class="p-4 hover:bg-slate-100 account-list-item cursor-pointer select-none flex flex-col" data=account.id href=`http://localhost:3000/confirm?ui=${account.id}&callback=${callback}`)= account.name
-    else
-      div.
-        Empty Account
+  div(class="gap-4 flex flex-col")
+    h1(class="text-lg font-semibold font-sans") Konfirmasi Akun
+    ol(class="divide-y border rounded-lg")
+      li(class="p-4")= account.name
+    a(class="p-4 hover:bg-blue-700 account-list-item cursor-pointer flex flex-col bg-blue-600 text-white rounded-lg" data=account.id href=`${callback}?email=${account.email}`) Konfirmasi
 
 script.
 
